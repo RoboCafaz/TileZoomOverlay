@@ -7,8 +7,8 @@ namespace TestMaps.iOS
 {
     public class CustomTileOverlay : MKTileOverlay
     {
-        public new int MinimumZ { get; set; }
         public new int MaximumZ { get; set; }
+
         private readonly NSCache _cache;
 
         public CustomTileOverlay(string urlTemplate) : base(urlTemplate)
@@ -26,7 +26,7 @@ namespace TestMaps.iOS
                 result.Invoke(data, null);
                 return;
             }
-            if (path.Z < MinimumZ || path.Z > MaximumZ)
+            if (path.Z > MaximumZ)
             {
                 var cut = Normalize(path, MaximumZ);
                 data = _cache.ObjectForKey(key) as NSData;
